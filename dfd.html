@@ -7,11 +7,63 @@
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
     mermaid.initialize({ startOnLoad: true, theme: "dark" });
   </script>
+  <style>
+    :root {
+      --entity: #444;
+      --process: #1f3c88;
+      --store: #065f46;
+      --start: #e63946;
+    }
+    body {
+      background: #0d1117;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: auto;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px auto 40px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: #161b22;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      gap: 6px;
+      border: 1px solid #30363d;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body style="background:#0d1117; color:white; font-family:sans-serif;">
 
   <h1 style="text-align:center;">Employee Management System - Data Flow Diagrams</h1>
-
+  <div class="wrap">
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:var(--entity)"></span>External Entity</span>
+      <span class="chip"><span class="dot" style="background:var(--process)"></span>Process</span>
+      <span class="chip"><span class="dot" style="background:var(--store)"></span>Data Store</span>
+      <span class="chip"><svg width="18" height="12" viewBox="0 0 36 18"><defs><marker id="arrow" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="currentColor"></polygon></marker></defs><path d="M1 9H33" stroke="currentColor" stroke-width="2" fill="none" marker-end="url(#arrow)"/></svg> Data Flow</span>
+    </div>
+    
   <!-- LEVEL 0 -->
   <h2>Level 0 (Context Diagram)</h2>
   <div class="mermaid">
@@ -138,8 +190,11 @@
       C3 --> Accounting
 
       classDef process fill:#1f3c88,stroke:#fff,stroke-width:1px,color:#fff;
+
       classDef entity fill:#444,stroke:#fff,stroke-width:1px,color:#fff;
+
       classDef data fill:#065f46,stroke:#fff,stroke-width:1px,color:#fff;
+
       classDef start fill:#e63946,stroke:#fff,stroke-width:2px,color:#fff;
   </div>
 </body>
