@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Management System – DFD Template</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121a33; --ink:#e7ecff; --muted:#b9c3ff; --accent:#6aa6ff; --accent2:#6dffa8; --warn:#ffd166;
+      --entity:#2a2f4a; --process:#1e2a55; --store:#1a3a37;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#0b1020,#0e1730 40%,#0b1020);color:var(--ink);font:14px/1.4 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif}
+    h1,h2{margin:18px 0 8px}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
+    .legend .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#0f1631;border:1px solid #20305c;color:var(--muted)}
+    .legend .dot{width:14px;height:14px;border-radius:3px}
+
+    .diagram{position:relative;background:rgba(255,255,255,0.03);border:1px solid #223059;border-radius:16px;padding:18px;min-height:420px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .stage{position:relative;min-height:380px}
+    .node{position:absolute;min-width:160px;max-width:240px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+    .node h3{margin:0 0 6px;font-size:14px;letter-spacing:.2px}
+    .node p{margin:0;color:var(--muted);font-size:12px}
+
+    .entity{background:var(--entity)}
+    .process{background:var(--process)}
+    .store{background:var(--store)}
+
+    .center{text-align:center}
+
+    /* Labels for arrows */
+    .label{position:absolute;padding:2px 6px;border-radius:8px;background:#133; color:#cde; font-size:11px; border:1px solid #264; pointer-events:none}
+
+    /* Sections */
+    .section{margin:28px 0}
+    .section h2{font-size:18px}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,#31457a,transparent);margin:18px 0}
+
+    /* Small helper badge */
+    .badge{display:inline-block;font-size:11px;color:#0b1020;background:var(--warn);padding:3px 8px;border-radius:8px;margin-left:8px}
+
+    /* Responsive tweak */
+    @media (max-width:960px){
+      .node{min-width:140px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Employee Management System – DFD (Levels 0, 1, 2)</h1>
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:var(--entity)"></span>External Entity</span>
+      <span class="chip"><span class="dot" style="background:var(--process)"></span>Process</span>
+      <span class="chip"><span class="dot" style="background:var(--store)"></span>Data Store</span>
+      <span class="chip"><svg width="18" height="12" viewBox="0 0 36 18"><defs><marker id="arrow" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="currentColor"></polygon></marker></defs><path d="M1 9H33" stroke="currentColor" stroke-width="2" fill="none" marker-end="url(#arrow)"/></svg> Data Flow</span>
+    </div>
+
+    <!-- ================= Level 0 ================= -->
+    <div class="section">
+      <h2>Level 0 – Context Diagram <span class="badge">Single process + entities</span></h2>
+      <div class="diagram" id="L0">
+        <svg class="wires" width="100%" height="100%" style="position:absolute;inset:0"></svg>
+        <div class="stage">
+          <div class="node entity center" id="L0-admin" style="left:24px; top:60px"><h3>Admin</h3><p>Approvals • Updates</p></div>
+          <div class="node entity center" id="L0-manager" style="left:24px; top:220px"><h3>Manager</h3><p>Approvals • Tasks</p></div>
+          <div class="node process center" id="L0-system" style="left:430px; top:130px; min-width:300px"><h3>Employee Management System</h3><p>Login • Attendance • Leaves • Payroll • Reports</p></div>
+          <div class="node entity center" id="L0-employee" style="right:24px; top:150px"><h3>Employee</h3><p>Login • Check-in/out • Requests</p></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+    </div>
+
+    <!-- ================= Level 1 ================= -->
+    <div class="section">
+      <h2>Level 1 – Major Subprocesses <span class="badge">Balanced with Level 0</span></h2>
+      <div class="diagram" id="L1" style="min-height:680px">
+        <svg class="wires" width="100%" height="100%" style="position:absolute;inset:0"></svg>
+        <div class="stage">
+          <!-- Top row processes -->
+          <div class="node process" id="p-employees" style="left:40px; top:40px"><h3>Manage Employees</h3><p>Add • Update • Remove • View</p></div>
+          <div class="node process" id="p-attendance" style="left:430px; top:40px"><h3>Manage Attendance</h3><p>Check-in/out • Reports</p></div>
+          <div class="node process" id="p-leaves" style="right:40px; top:40px"><h3>Manage Leaves</h3><p>Request • Approve/Reject • Balance</p></div>
+
+          <!-- Middle row processes -->
+          <div class="node process" id="p-departments" style="left:40px; top:220px"><h3>Manage Departments</h3><p>Create • Update</p></div>
+          <div class="node process" id="p-roles" style="left:430px; top:220px"><h3>Manage Roles &amp; Permissions</h3><p>Assign Roles</p></div>
+          <div class="node process" id="p-payroll" style="right:40px; top:220px"><h3>Manage Payroll</h3><p>Salary • Payslip</p></div>
+
+          <!-- Bottom row processes -->
+          <div class="node process" id="p-tasks" style="left:40px; top:400px"><h3>Manage Tasks / Projects</h3><p>Assign • Track</p></div>
+          <div class="node process" id="p-reports" style="left:430px; top:400px"><h3>Generate Reports &amp; Stats</h3><p>Attendance • Leave • Employee</p></div>
+          <div class="node process" id="p-messages" style="right:40px; top:400px"><h3>Manage Messages / Notifications</h3><p>Send • Receive</p></div>
+
+          <!-- Data stores -->
+          <div class="node store" id="ds-employees" style="left:60px; bottom:24px"><h3>Table Employees</h3></div>
+          <div class="node store" id="ds-attendance" style="left:300px; bottom:24px"><h3>Table Attendance</h3></div>
+          <div class="node store" id="ds-leaves" style="left:540px; bottom:24px"><h3>Table Leave Types &amp; Requests</h3></div>
+          <div class="node store" id="ds-departments" style="left:820px; bottom:24px"><h3>Table Departments</h3></div>
+          <div class="node store" id="ds-roles" style="right:260px; bottom:24px"><h3>Table Roles &amp; Permissions</h3></div>
+          <div class="node store" id="ds-payroll" style="right:24px; bottom:24px"><h3>Table Payroll</h3></div>
+          <div class="node store" id="ds-tasks" style="left:60px; bottom:-120px"><h3>Table Tasks / Projects</h3></div>
+          <div class="node store" id="ds-messages" style="right:60px; bottom:-120px"><h3>Table Messages / Notifications</h3></div>
+
+          <!-- External entities (Level 1 perspective) -->
+          <div class="node entity" id="L1-admin" style="left:-4px; top:560px"><h3>Admin</h3></div>
+          <div class="node entity" id="L1-manager" style="left:200px; top:560px"><h3>Manager</h3></div>
+          <div class="node entity" id="L1-employee" style="right:-4px; top:560px"><h3>Employee</h3></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+    </div>
+
+    <!-- ================= Level 2 (Payroll) ================= -->
+    <div class="section">
+      <h2>Level 2 – Manage Payroll <span class="badge">Expanded</span></h2>
+      <div class="diagram" id="L2">
+        <svg class="wires" width="100%" height="100%" style="position:absolute;inset:0"></svg>
+        <div class="stage">
+          <!-- Inputs -->
+          <div class="node store" id="l2-emp" style="left:40px; top:40px"><h3>Employee Details</h3></div>
+          <div class="node store" id="l2-att" style="left:40px; top:160px"><h3>Attendance Records</h3></div>
+          <div class="node store" id="l2-salinfo" style="left:40px; top:280px"><h3>Salary Info</h3></div>
+
+          <!-- Process chain -->
+          <div class="node process center" id="l2-calc" style="left:360px; top:80px"><h3>Calculate Salary</h3><p>rate × hours ± adj.</p></div>
+          <div class="node process center" id="l2-update" style="left:360px; top:210px"><h3>Update Payroll</h3></div>
+          <div class="node process center" id="l2-payslip" style="left:360px; top:340px"><h3>Generate Payslip</h3></div>
+
+          <!-- Stores/Outputs -->
+          <div class="node store" id="l2-payroll" style="right:40px; top:210px"><h3>Payroll Table</h3></div>
+          <div class="node entity" id="l2-acc" style="right:40px; top:80px"><h3>Accounting</h3></div>
+          <div class="node entity" id="l2-empout" style="right:40px; top:340px"><h3>Employee</h3></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tiny connector helper to draw elbow polylines between nodes with labels
+    function connect(containerId, pairs){
+      const root=document.getElementById(containerId);
+      const svg=root.querySelector('svg.wires');
+      svg.innerHTML='';
+
+      const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+      const m=document.createElementNS('http://www.w3.org/2000/svg','marker');
+      m.setAttribute('id',containerId+'-arrow');m.setAttribute('markerWidth','10');m.setAttribute('markerHeight','7');m.setAttribute('refX','8');m.setAttribute('refY','3.5');m.setAttribute('orient','auto');
+      const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      poly.setAttribute('points','0 0, 8 3.5, 0 7'); poly.setAttribute('fill','#9fd'); m.appendChild(poly); defs.appendChild(m); svg.appendChild(defs);
+
+      function rect(el){const r=el.getBoundingClientRect();const s=svg.getBoundingClientRect();return {x:r.left-s.left,y:r.top-s.top,w:r.width,h:r.height}};
+      function addLabel(x,y,text){const d=document.createElement('div');d.className='label';d.textContent=text; d.style.left=(x-4)+'px'; d.style.top=(y-12)+'px'; root.appendChild(d); return d}
+
+      // clear old html labels
+      [...root.querySelectorAll('.label')].forEach(e=>e.remove());
+
+      pairs.forEach(([fromId,toId,label,opts={}])=>{
+        const a=document.getElementById(fromId); const b=document.getElementById(toId); if(!a||!b) return;
+        const ra=rect(a), rb=rect(b);
+        const fromRight = ra.x+ra.w <= rb.x; // b is to the right
+        const fromLeft = rb.x+rb.w <= ra.x;  // b is to the left
+        const fromAbove = ra.y+ra.h <= rb.y; // b below
+        const fromBelow = rb.y+rb.h <= ra.y; // b above
+
+        let startX, startY, endX, endY, midX, midY;
+        if(fromRight){ // left-to-right
+          startX = ra.x + ra.w; startY = ra.y + ra.h/2; endX = rb.x; endY = rb.y + rb.h/2; midX = (startX+endX)/2; midY = startY;
+          var pts = [[startX,startY],[midX,startY],[midX,endY],[endX,endY]];
+        } else if(fromLeft){ // right-to-left
+          startX = ra.x; startY = ra.y + ra.h/2; endX = rb.x + rb.w; endY = rb.y + rb.h/2; midX = (startX+endX)/2; midY = startY;
+          var pts = [[startX,startY],[midX,startY],[midX,endY],[endX,endY]];
+        } else if(fromAbove){ // top-to-bottom
+          startX = ra.x + ra.w/2; startY = ra.y + ra.h; endX = rb.x + rb.w/2; endY = rb.y; midX = startX; midY = (startY+endY)/2;
+          var pts = [[startX,startY],[startX,midY],[endX,midY],[endX,endY]];
+        } else { // bottom-to-top
+          startX = ra.x + ra.w/2; startY = ra.y; endX = rb.x + rb.w/2; endY = rb.y + rb.h; midX = startX; midY = (startY+endY)/2;
+          var pts = [[startX,startY],[startX,midY],[endX,midY],[endX,endY]];
+        }
+
+        const path=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+        path.setAttribute('fill','none');
+        path.setAttribute('stroke','#9fd');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('marker-end', `url(#${containerId}-arrow)`);
+        path.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+        svg.appendChild(path);
+        if(label){
+          const lx = pts[Math.floor(pts.length/2)][0];
+          const ly = pts[Math.floor(pts.length/2)][1];
+          addLabel(lx,ly,label);
+        }
+      });
+    }
+
+    function wireAll(){
+      // Level 0 connections
+      connect('L0', [
+        ['L0-admin','L0-system','Approvals/Updates'],
+        ['L0-manager','L0-system','Approvals/Tasks'],
+        ['L0-employee','L0-system','Login/Requests'],
+        ['L0-system','L0-employee','Payslips/Notifications'],
+      ]);
+
+      // Level 1 connections (sample key flows)
+      connect('L1', [
+        ['p-employees','ds-employees','CRUD Employee'],
+        ['p-attendance','ds-attendance','Check-in/out'],
+        ['p-leaves','ds-leaves','Requests'],
+        ['p-departments','ds-departments','Dept Data'],
+        ['p-roles','ds-roles','Role Assign'],
+        ['p-payroll','ds-payroll','Salary'],
+        ['p-tasks','ds-tasks','Tasks'],
+        ['p-messages','ds-messages','Messages'],
+
+        // Cross-process examples
+        ['p-attendance','p-payroll','Hours Worked'],
+        ['p-employees','p-payroll','Employee Details'],
+        ['p-leaves','p-payroll','Leave Deductions'],
+        ['p-reports','L1-admin','Reports'],
+        ['p-reports','L1-manager','Reports'],
+        ['p-messages','L1-employee','Notifications']
+      ]);
+
+      // Level 2 (Payroll) detailed
+      connect('L2', [
+        ['l2-emp','l2-calc','Employee details'],
+        ['l2-att','l2-calc','Attendance'],
+        ['l2-salinfo','l2-calc','Salary rules'],
+        ['l2-calc','l2-update','Calculated totals'],
+        ['l2-update','l2-payroll','Persist payroll'],
+        ['l2-payslip','l2-empout','Payslip'],
+        ['l2-update','l2-payslip','Net/Gross'],
+        ['l2-update','l2-acc','Salary report']
+      ]);
+    }
+
+    window.addEventListener('load', wireAll);
+    window.addEventListener('resize', wireAll);
+  </script>
+</body>
+</html>

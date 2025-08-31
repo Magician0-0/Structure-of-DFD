@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management System - DFD Levels</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "dark" });
+  </script>
+</head>
+<body style="background:#0d1117; color:white; font-family:sans-serif;">
+
+  <h1 style="text-align:center;">Employee Management System - Data Flow Diagrams</h1>
+
+  <!-- LEVEL 0 -->
+  <h2>Level 0 (Context Diagram)</h2>
+  <div class="mermaid">
+    flowchart LR
+      start(((START))):::start
+
+      Admin([Admin]):::entity
+      Manager([Manager]):::entity
+      Employee([Employee]):::entity
+
+      EMS([Employee Management System]):::process
+
+      start --> EMS
+
+      Employee -->|Login, Requests, Check-in| EMS
+      Admin -->|Updates, Salary Info| EMS
+      Manager -->|Approvals, Reports| EMS
+
+      EMS -->|Reports, Notifications, Payslip| Employee
+      EMS -->|Reports| Admin
+      EMS -->|Reports| Manager
+
+      classDef process fill:#1f3c88,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef entity fill:#444,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef start fill:#e63946,stroke:#fff,stroke-width:2px,color:#fff;
+  </div>
+
+  <!-- LEVEL 1 -->
+  <h2>Level 1 (Major Subprocesses)</h2>
+  <div class="mermaid">
+    flowchart TB
+      start1(((START))):::start
+
+      %% External Entities
+      Admin([Admin]):::entity
+      Manager([Manager]):::entity
+      Employee([Employee]):::entity
+
+      %% Processes
+      P1([Manage Employees]):::process
+      P2([Manage Attendance]):::process
+      P3([Manage Leaves]):::process
+      P4([Manage Departments]):::process
+      P5([Manage Roles & Permissions]):::process
+      P6([Manage Payroll]):::process
+      P7([Manage Tasks / Projects]):::process
+      P8([Generate Reports & Stats]):::process
+      P9([Manage Messages / Notifications]):::process
+
+      %% Data Stores
+      D1[(Table Employees)]:::data
+      D2[(Table Attendance)]:::data
+      D3[(Table Leave Types & Requests)]:::data
+      D4[(Table Departments)]:::data
+      D5[(Table Roles & Permissions)]:::data
+      D6[(Table Payroll)]:::data
+      D7[(Table Tasks / Projects)]:::data
+      D8[(Table Messages / Notifications)]:::data
+
+      start1 --> P1
+
+      Admin --> P5
+      Manager --> P3
+      Employee --> P1
+      Employee --> P2
+      Employee --> P3
+
+      P1 --> D1
+      P2 --> D2
+      P3 --> D3
+      P4 --> D4
+      P5 --> D5
+      P6 --> D6
+      P7 --> D7
+      P9 --> D8
+
+      D2 --> P6
+      D3 --> P6
+      D1 --> P6
+
+      P8 --> Manager
+      P8 --> Admin
+      P9 --> Employee
+
+      classDef process fill:#1f3c88,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef entity fill:#444,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef data fill:#065f46,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef start fill:#e63946,stroke:#fff,stroke-width:2px,color:#fff;
+  </div>
+
+  <!-- LEVEL 2 -->
+  <h2>Level 2 (Expansion of Payroll)</h2>
+  <div class="mermaid">
+    flowchart TB
+      start2(((START))):::start
+
+      %% Inputs
+      EmployeeDetails([Employee Details]):::data
+      Attendance([Attendance Records]):::data
+      LeaveDeductions([Leave Deductions]):::data
+
+      %% Processes
+      C1([Calculate Salary]):::process
+      C2([Update Payroll]):::process
+      C3([Generate Payslip]):::process
+
+      %% Data Store
+      Payroll[(Payroll Table)]:::data
+
+      %% External Entities
+      Accounting([Accounting Department]):::entity
+      Employee([Employee]):::entity
+
+      %% Flow
+      start2 --> C1
+      EmployeeDetails --> C1
+      Attendance --> C1
+      LeaveDeductions --> C1
+
+      C1 --> C2
+      C2 --> Payroll
+      Payroll --> C3
+      C3 --> Employee
+      C3 --> Accounting
+
+      classDef process fill:#1f3c88,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef entity fill:#444,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef data fill:#065f46,stroke:#fff,stroke-width:1px,color:#fff;
+      classDef start fill:#e63946,stroke:#fff,stroke-width:2px,color:#fff;
+  </div>
+</body>
+</html>
